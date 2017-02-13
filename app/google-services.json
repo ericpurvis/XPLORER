@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "537374674755",
+    "firebase_url": "https://xplorer-6bee1.firebaseio.com",
+    "project_id": "xplorer-6bee1",
+    "storage_bucket": "xplorer-6bee1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537374674755:android:5827381f75b222ac",
+        "android_client_info": {
+          "package_name": "com.example.ericrpurvis.xplorer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537374674755-3vtu18ensfj26llo7f8itjhtf6nplcq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB06nNN762YihDFvK_j0IW_pbeOppME70I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
