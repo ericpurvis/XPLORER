@@ -13,19 +13,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDMevr0z-wtJP3I89sCcfN0TQFW0e3Ri_8" />
 
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name">
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value= "AIzaSyDMevr0z-wtJP3I89sCcfN0TQFW0e3Ri_8" />
     </application>
 
 </manifest>
