@@ -18,6 +18,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     //view objects
     private TextView textViewUserEmail;
     private Button buttonLogout;
+    private Button buttonLocation;
 
 
     @Override
@@ -43,12 +44,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         //initializing views
         textViewUserEmail = (TextView) findViewById(R.id.textViewUserEmail);
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
+        buttonLocation = ( Button ) findViewById(R.id.buttonLocation);
 
         //displaying logged in user name
         textViewUserEmail.setText("Welcome "+user.getEmail());
 
         //adding listener to button
         buttonLogout.setOnClickListener(this);
+        buttonLocation.setOnClickListener(this);
     }
 
     @Override
@@ -61,6 +64,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             finish();
             //starting login activity
             startActivity(new Intent(this, LoginActivity.class));
+        }
+        if(view == buttonLocation){
+            startActivity(new Intent(this, MapsActivity.class));
         }
     }
 }
