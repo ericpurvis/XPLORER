@@ -9,26 +9,48 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends Activity {
 
-    private GoogleMap mMap;
+    // Google Map
+    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        setContentView(R.layout.activity_main);
+
+        try {
+            // Loading map
+            initilizeMap();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * function to load map. If map is not created it will create it for you
+     * */
+    private void initilizeMap() {
+        if (googleMap == null) {
+            googleMap = ((MapFragment) getFragmentManager().findFragmentById(
+                    R.id.map)).getMap();
+
+            // check if map is created successfully or not
+            if (googleMap == null) {
+                Toast.makeText(getApplicationContext(),
+                        "Sorry! unable to create maps", Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in Sydney, Australia, and move the camera.
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    protected void onResume() {
+        super.onResume();
+        initilizeMap();
     }
+
 }
+
