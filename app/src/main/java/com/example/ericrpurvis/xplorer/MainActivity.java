@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class NewUserActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     //defining view objects
     private EditText editTextEmail;
@@ -35,7 +35,7 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_newUser);
+        setContentView(R.layout.activity_main);
 
         //initializing firebase auth object
         firebaseAuth = FirebaseAuth.getInstance();
@@ -98,7 +98,7 @@ public class NewUserActivity extends AppCompatActivity implements View.OnClickLi
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         }else{
                             //display some message here
-                            Toast.makeText(NewUserActivity.this,"Registration Error",Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this,"Registration Error",Toast.LENGTH_LONG).show();
                         }
                         progressDialog.dismiss();
                     }
