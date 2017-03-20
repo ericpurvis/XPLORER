@@ -1,6 +1,5 @@
 package com.example.ericrpurvis.xplorer;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseUser;
 
 /**

@@ -15,12 +15,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
-
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +36,6 @@ public class MapsActivity extends AppCompatActivity
     private static final String TAG = "MapsActivity";
     private DatabaseReference databaseReference;
     private GoogleMap map;
-    private DataSnapshot snapShot;
 
     private LocationManager locationManager;
     private String provider;
@@ -76,8 +74,11 @@ public class MapsActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot locations : dataSnapshot.getChildren()) {
-                    LatLng tempLatLng = (LatLng)locations.getValue(LatLng.class);
-                    map.addMarker(new MarkerOptions().position(tempLatLng));
+                    com.example.ericrpurvis.xplorer.LatLng tempLatLng = locations.child("coord").getValue(com.example.ericrpurvis.xplorer.LatLng.class);
+                    LatLng mapsLatLng =
+                            new LatLng(tempLatLng.getLatitude(),
+                                    tempLatLng.getLongitude());
+                    map.addMarker(new MarkerOptions().position(mapsLatLng));
                 }
             }
 
