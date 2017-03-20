@@ -109,6 +109,8 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
 
         Toast.makeText(this, "Location Saved", Toast.LENGTH_LONG).show();
 
+        //Boots the user back to the menu page
+        startActivity(new Intent(this, ProfileActivity.class));
     }
 
     @Override
@@ -148,7 +150,6 @@ public class PostActivity extends AppCompatActivity implements OnClickListener, 
 
     @Override
     public void onProviderDisabled(String provider) {
-        Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        startActivity(i);
+        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
     }
 }

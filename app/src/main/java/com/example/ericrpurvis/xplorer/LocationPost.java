@@ -13,8 +13,7 @@ public class LocationPost {
     public String desc;
     public String actType;
     public FirebaseUser user;
-    public double lat;
-    public double lng;
+    public LatLng coord;
 
     public LocationPost(){
 
@@ -25,7 +24,6 @@ public class LocationPost {
         this.desc = desc;
         this.actType = actType;
         this.user = user;
-        this.lat = lat;
-        this.lng = lng;
+        this.coord = new LatLng(lat, lng);
     }
 }

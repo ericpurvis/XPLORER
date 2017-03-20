@@ -1,6 +1,5 @@
 package com.example.ericrpurvis.xplorer;
 
-import android.*;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -13,19 +12,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
@@ -34,6 +35,10 @@ public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback, LocationListener {
 
     private static final String TAG = "MapsActivity";
+    private DatabaseReference databaseReference;
+    private GoogleMap map;
+    private DataSnapshot snapShot;
+
     private LocationManager locationManager;
     private String provider;
 
@@ -60,8 +65,27 @@ public class MapsActivity extends AppCompatActivity
             return;
         }
         locationManager.requestLocationUpdates(provider, 3000, 1,this);
+    }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        Toast.makeText(this, "onStart was called", Toast.LENGTH_LONG).show();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Locations");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot locations : dataSnapshot.getChildren()) {
+                    LatLng tempLatLng = (LatLng)locations.getValue(LatLng.class);
+                    map.addMarker(new MarkerOptions().position(tempLatLng));
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -77,6 +101,7 @@ public class MapsActivity extends AppCompatActivity
             }
             return;
         }
+        map = googleMap;
         Location loc = locationManager.getLastKnownLocation(provider);
         LatLng currentLocation = new LatLng(loc.getLatitude(), loc.getLongitude());
 
@@ -101,8 +126,9 @@ public class MapsActivity extends AppCompatActivity
 
     @Override
     public void onProviderDisabled(String provider) {
-        Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        startActivity(i);
+        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
     }
+
+
 }
 
