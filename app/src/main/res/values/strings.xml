@@ -15,10 +15,10 @@
     </string>
 
 
-    <string-array name = "location_options">
-        <item name = "Parkour">Parkour</item>
-        <item name = "Longboarding">Longboarding</item>
-        <item name = "Rock-climbing">Rock-climbing</item>
-        <item name = "Cliff-jumping">Cliff-jumping</item>
+    <string-array name="location_options">
+        <item name="Parkour">Parkour</item>
+        <item name="Longboarding">Longboarding</item>
+        <item name="Rock-climbing">Rock-climbing</item>
+        <item name="Cliff-jumping">Cliff-jumping</item>
     </string-array>
 </resources>

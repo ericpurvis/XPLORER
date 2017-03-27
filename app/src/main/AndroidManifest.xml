@@ -33,7 +33,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".MapsActivity" />
-        <activity android:name=".PostActivity"></activity>
+        <activity android:name=".PostLocationActivity" />
+        <activity android:name=".ViewLocationActivity" />
+        <activity android:name=".PostEventActivity"></activity>
     </application>
 
 </manifest>

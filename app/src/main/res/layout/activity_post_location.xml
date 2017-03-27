@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.ericrpurvis.xplorer.PostActivity">
+    tools:context="com.example.ericrpurvis.xplorer.PostLocationActivity">
 
 
     <TextView
@@ -61,10 +61,9 @@
         android:ems="10"
         android:hint="Description"
         android:background="@android:color/transparent"
+        android:layout_marginTop="60dp"
+        android:id="@+id/description"
         android:layout_below="@+id/name"
         android:layout_alignLeft="@+id/name"
-        android:layout_alignRight="@+id/name"
-        android:layout_alignStart="@+id/name"
-        android:layout_marginTop="60dp"
-        android:id="@+id/description" />
+        android:layout_alignStart="@+id/name" />
 </RelativeLayout>

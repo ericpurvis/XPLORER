@@ -51,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonLocation = ( Button ) findViewById(R.id.buttonLocation);
         buttonPostLocation = (Button) findViewById(R.id.buttonPostLocation);
 
-        //displaying logged in user name
+        //displaying logged in user locationName
         textViewUserEmail.setText("Welcome "+user.getEmail());
 
         //adding listener to button
@@ -76,7 +76,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         if(view == buttonPostLocation){
-            startActivity(new Intent(this, PostActivity.class));
+            startActivity(new Intent(this, PostLocationActivity.class));
         }
     }
 }

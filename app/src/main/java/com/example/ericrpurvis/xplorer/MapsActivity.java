@@ -14,12 +14,16 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +35,7 @@ import com.google.firebase.database.ValueEventListener;
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
  */
 public class MapsActivity extends AppCompatActivity
-        implements OnMapReadyCallback, LocationListener {
+        implements OnMapReadyCallback, LocationListener, OnInfoWindowClickListener {
 
     private static final String TAG = "MapsActivity";
     private DatabaseReference databaseReference;
@@ -78,7 +82,14 @@ public class MapsActivity extends AppCompatActivity
                     LatLng mapsLatLng =
                             new LatLng(tempLatLng.getLatitude(),
                                     tempLatLng.getLongitude());
-                    map.addMarker(new MarkerOptions().position(mapsLatLng));
+                    map.addMarker(new MarkerOptions()
+                            .position(mapsLatLng)
+                            .title(locations.child("name").getValue().toString())
+                            .snippet("Type: " + locations.child("actType").getValue().toString() +
+                                    "\n" + locations.child("desc").getValue().toString()))
+                            .setTag(locations.getKey());
+
+
                 }
             }
 
@@ -103,6 +114,28 @@ public class MapsActivity extends AppCompatActivity
             return;
         }
         map = googleMap;
+        if(map != null){
+            map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter(){
+                @Override
+                public View getInfoWindow(Marker arg0){
+                    return null;
+                }
+
+                @Override
+                public View getInfoContents(Marker marker){
+
+                    View v = getLayoutInflater().inflate(R.layout.info_window, null);
+                    TextView tvTitle = (TextView) v.findViewById(R.id.title);
+                    TextView tvDescription = (TextView) v.findViewById(R.id.description);
+
+                    tvTitle.setText(marker.getTitle());
+                    tvDescription.setText(marker.getSnippet());
+
+                    return v;
+                }
+            });
+            map.setOnInfoWindowClickListener(this);
+        }
         Location loc = locationManager.getLastKnownLocation(provider);
         LatLng currentLocation = new LatLng(loc.getLatitude(), loc.getLongitude());
 
@@ -130,6 +163,21 @@ public class MapsActivity extends AppCompatActivity
         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
     }
 
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+//        Toast.makeText(this, marker.getTitle().toString() + " info window clicked",
+//                Toast.LENGTH_LONG).show();
+
+        if(marker.getTitle().equals("Current Location")){
+            startActivity(new Intent(this, PostLocationActivity.class));
+        }
+        else{
+            Intent intent = new Intent(this, ViewLocationActivity.class);
+            intent.putExtra("ID", marker.getTag().toString());
+            startActivity(intent);
+        }
+
+    }
 
 }
 
