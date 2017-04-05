@@ -105,7 +105,7 @@ public class PostLocationActivity extends AppCompatActivity implements OnClickLi
 
         Toast.makeText(this, "Location Saved", Toast.LENGTH_LONG).show();
 
-        //Boots the user back to the menu page
+        //Boots the user backg to the menu page
         startActivity(new Intent(this, ProfileActivity.class));
     }
 

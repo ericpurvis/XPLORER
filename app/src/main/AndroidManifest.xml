@@ -23,19 +23,27 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDMevr0z-wtJP3I89sCcfN0TQFW0e3Ri_8" />
 
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MapsActivity" />
-        <activity android:name=".PostLocationActivity" />
-        <activity android:name=".ViewLocationActivity" />
-        <activity android:name=".PostEventActivity"></activity>
+        <activity android:name=".MapsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PostLocationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ViewLocationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PostEventActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

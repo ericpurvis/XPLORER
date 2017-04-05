@@ -72,7 +72,6 @@ public class MapsActivity extends AppCompatActivity
     @Override
     public void onStart(){
         super.onStart();
-        Toast.makeText(this, "onStart was called", Toast.LENGTH_LONG).show();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Locations");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
