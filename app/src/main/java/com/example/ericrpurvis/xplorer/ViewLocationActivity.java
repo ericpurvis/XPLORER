@@ -1,6 +1,8 @@
 package com.example.ericrpurvis.xplorer;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -107,14 +110,20 @@ public class ViewLocationActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
 
-        if(view == buttonPostEvent){
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        boolean isConnected = netInfo != null && netInfo.isConnectedOrConnecting();
+        if(isConnected) {
+            if (view == buttonPostEvent) {
 
-//            Toast.makeText(this, "Post Event Button Clicked",
-//                Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, PostEventActivity.class);
-            intent.putExtra("ID", ID);
+                Intent intent = new Intent(this, PostEventActivity.class);
+                intent.putExtra("ID", ID);
 
-            startActivity(intent);
+                startActivity(intent);
+            }
+        }
+        else{
+            Toast.makeText(this, "Re-Establish Network Connection.", Toast.LENGTH_LONG).show();
         }
     }
 

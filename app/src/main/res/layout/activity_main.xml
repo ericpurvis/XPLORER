@@ -64,10 +64,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:background="?android:attr/colorAccent"
-            android:fontFamily="sans-serif-condensed"
-            android:text="Sign up"
+            android:background="?attr/colorAccent"
+            android:text="Sign Up"
             android:textAllCaps="true" />
+
 
         <TextView
             android:id="@+id/textViewSignin"

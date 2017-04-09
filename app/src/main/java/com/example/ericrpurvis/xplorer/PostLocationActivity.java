@@ -8,6 +8,8 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
@@ -112,8 +114,16 @@ public class PostLocationActivity extends AppCompatActivity implements OnClickLi
     @Override
     public void onClick(View view) {
 
-        if (view == buttonPost) {
-            getInformation();
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        boolean isConnected = netInfo != null && netInfo.isConnectedOrConnecting();
+        if(isConnected) {
+            if (view == buttonPost) {
+                getInformation();
+            }
+        }
+        else{
+            Toast.makeText(this, "Re-Establish Network Connection.", Toast.LENGTH_LONG).show();
         }
     }
 

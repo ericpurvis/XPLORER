@@ -1,6 +1,8 @@
 package com.example.ericrpurvis.xplorer;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -70,18 +72,26 @@ public class PostEventActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View view) {
 
-        if (view == buttonPostEventFinal) {
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        boolean isConnected = netInfo != null && netInfo.isConnectedOrConnecting();
+        if(isConnected) {
+            if (view == buttonPostEventFinal) {
 
-//            Toast.makeText(this, "Post Button clicked",
-//                Toast.LENGTH_LONG).show();
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("Locations").child(ID);
+                //            Toast.makeText(this, "Post Button clicked",
+                //                Toast.LENGTH_LONG).show();
+                databaseReference = FirebaseDatabase.getInstance().getReference().child("Locations").child(ID);
 
                 postEvent();
 
-            Intent intent = new Intent(this, ViewLocationActivity.class);
-            intent.putExtra("ID", ID);
+                Intent intent = new Intent(this, ViewLocationActivity.class);
+                intent.putExtra("ID", ID);
 
-            startActivity(intent);
+                startActivity(intent);
+            }
+        }
+        else{
+            Toast.makeText(this, "Re-Establish Network Connection.", Toast.LENGTH_LONG).show();
         }
     }
 

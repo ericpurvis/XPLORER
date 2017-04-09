@@ -1,12 +1,15 @@
 package com.example.ericrpurvis.xplorer;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,21 +65,29 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        //if logout is pressed
-        if(view == buttonLogout){
-            //logging out the user
-            firebaseAuth.signOut();
-            //closing activity
-            finish();
-            //starting login activity
-            startActivity(new Intent(this, LoginActivity.class));
-        }
-        if(view == buttonLocation){
-            startActivity(new Intent(this, MapsActivity.class));
-        }
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        boolean isConnected = netInfo != null && netInfo.isConnectedOrConnecting();
+        if(isConnected) {
+            //if logout is pressed
+            if (view == buttonLogout) {
+                //logging out the user
+                firebaseAuth.signOut();
+                //closing activity
+                finish();
+                //starting login activity
+                startActivity(new Intent(this, LoginActivity.class));
+            }
+            if (view == buttonLocation) {
+                startActivity(new Intent(this, MapsActivity.class));
+            }
 
-        if(view == buttonPostLocation){
-            startActivity(new Intent(this, PostLocationActivity.class));
+            if (view == buttonPostLocation) {
+                startActivity(new Intent(this, PostLocationActivity.class));
+            }
+        }
+        else{
+            Toast.makeText(this, "Re-Establish Network Connection.", Toast.LENGTH_LONG).show();
         }
     }
 }

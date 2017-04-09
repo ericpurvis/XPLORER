@@ -2,6 +2,8 @@ package com.example.ericrpurvis.xplorer;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -108,13 +110,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        if(view == buttonSignIn){
-            userLogin();
-        }
+        ConnectivityManager cm = (ConnectivityManager)this.getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        boolean isConnected = netInfo != null && netInfo.isConnectedOrConnecting();
+        if(isConnected) {
+            if (view == buttonSignIn) {
+                userLogin();
+            }
 
-        if(view == textViewSignup){
-            finish();
-            startActivity(new Intent(this, MainActivity.class));
+            if (view == textViewSignup) {
+                finish();
+                startActivity(new Intent(this, MainActivity.class));
+            }
+        }
+        else{
+            Toast.makeText(this, "Re-Establish Network Connection.", Toast.LENGTH_LONG).show();
         }
     }
 }
