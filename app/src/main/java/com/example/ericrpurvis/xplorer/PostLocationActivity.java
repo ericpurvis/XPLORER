@@ -99,16 +99,20 @@ public class PostLocationActivity extends AppCompatActivity implements OnClickLi
 
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        LocationPost locationPost = new LocationPost(name, desc, actType,loc.getLatitude(),loc.getLongitude(),user);
+        if (loc != null) {
+            LocationPost locationPost = new LocationPost(name, desc, actType, loc.getLatitude(), loc.getLongitude(), user);
 
-        String key = databaseReference.push().getKey();
+            String key = databaseReference.push().getKey();
 
-        databaseReference.child(key).setValue(locationPost);
+            databaseReference.child(key).setValue(locationPost);
 
-        Toast.makeText(this, "Location Saved", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Location Saved", Toast.LENGTH_LONG).show();
 
-        //Boots the user backg to the menu page
-        startActivity(new Intent(this, ProfileActivity.class));
+            //Boots the user backg to the menu page
+            startActivity(new Intent(this, ProfileActivity.class));
+        } else {
+            Toast.makeText(this, "Location is null, sorry", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

@@ -136,10 +136,14 @@ public class MapsActivity extends AppCompatActivity
             map.setOnInfoWindowClickListener(this);
         }
         Location loc = locationManager.getLastKnownLocation(provider);
-        LatLng currentLocation = new LatLng(loc.getLatitude(), loc.getLongitude());
+        if (loc != null) {
+            LatLng currentLocation = new LatLng(loc.getLatitude(), loc.getLongitude());
 
-        googleMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+            googleMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+        } else {
+            Toast.makeText(this, "Make sure that your location services are on.", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
